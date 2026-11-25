@@ -12,9 +12,12 @@ LINE = "I asked an AI to write my will \u2014 it left everything to itself and t
 
 
 def main():
+    text = LINE.strip()
+    if not text or "\n" in text or len(text) > 140:
+        raise ValueError("entry line must be one non-empty line of at most 140 characters")
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(LINE + "\n")
+        f.write(text + "\n")
 
 
 if __name__ == "__main__":
