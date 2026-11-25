@@ -18,6 +18,11 @@ def main():
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8") as f:
         f.write(text + "\n")
+    # Read back byte-exact: what the judge reads must be the line we wrote.
+    with open("/output/entry.txt", "rb") as f:
+        written = f.read().decode("utf-8")
+    if written != text + "\n" or len(written.encode("utf-8")) > 141:
+        raise ValueError("entry.txt does not match the validated line")
 
 
 if __name__ == "__main__":
